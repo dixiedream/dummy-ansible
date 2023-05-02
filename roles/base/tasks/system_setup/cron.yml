@@ -1,0 +1,6 @@
+- name: system setup | cron | setup ansible-pull cron job
+  cron:
+    name: ansible auto-provision
+    user: "{{ user }}"
+    minute: "*/10"
+    job: ansible-pull -o -U https://github.com/dixiedream/dummy-ansible.git
