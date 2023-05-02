@@ -1,0 +1,24 @@
+- name: packages
+  become: true
+  block:
+    - name: packages | remove bloat
+      package:
+        name:
+          - baobab
+          - celluloid
+          - drawing
+          - gnote
+          - gnome-calendar
+          - gnome-logs
+          - hexchat
+          - onboard
+          - pix
+          - redshift
+          - rhythmbox
+          - seahorse
+          - simple-scan
+          - thunderbird
+          - transmission-gtk
+          - xreader
+          - warpinator
+        state: absent
