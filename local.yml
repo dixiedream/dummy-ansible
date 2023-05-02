@@ -12,6 +12,7 @@
 - hosts: all
   roles:
     - base
+    - cinnamon
 
 - hosts: all
   become: true
