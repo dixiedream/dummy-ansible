@@ -11,6 +11,7 @@
           - gnome-calendar
           - gnome-logs
           - hexchat
+          - hypnotix
           - onboard
           - pix
           - redshift
@@ -18,6 +19,7 @@
           - seahorse
           - simple-scan
           - thunderbird
+          - timeshift
           - transmission-gtk
           - xreader
           - warpinator
