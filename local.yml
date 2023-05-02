@@ -2,25 +2,16 @@
 - hosts: all
   become: true
   pre_tasks:
-    - name: pre-run | update package cache (Pacman)
-      pacman:
-        update_cache: yes
-      changed_when: False
-      when: ansible_distribution in ["Archlinux", "Artix Linux"]
-
     - name: pre-run | update package cache (Apt)
       apt:
         update_cache: yes
       changed_when: False
-      when: ansible_distribution in ["Debian", "Pop!_OS"]
+      when: ansible_family in ["Debian", "Ubuntu"]
 
   # run roles
 - hosts: all
-  vars:
-    dotfiles_branch: "master"
   roles:
     - base
-    - X11
 
 - hosts: all
   become: true
@@ -29,10 +20,10 @@
     apt:
       autoclean: yes
     changed_when: false
-    when: ansible_distribution in ["Debian", "Pop!_OS"]
+    when: ansible_family in ["Debian", "Ubuntu"]
 
   - name: autoremove orphan packages (Apt)
     apt:
       autoremove: yes
       purge: yes
-    when: ansible_distribution in ["Debian", "Pop!_OS"]
+    when: ansible_family in ["Debian", "Ubuntu"]
