@@ -1,0 +1,16 @@
+# Load distro specific variables
+- include_vars: "{{ ansible_os_family }}.yml"
+  when: ansible_system == "Linux"
+
+- name: Check if systemd exists
+  command: readlink -f /sbin/init
+  register: readlink
+
+- name: Linux setup
+  block:
+    - import_tasks: users/user.yml
+    - import_tasks: ansible_setup.yml
+    - import_tasks: packages/install_packages.yml
+    - import_tasks: packages/install_brave.yml
+    - import_tasks: system_setup/apt.yml
+  when: ansible_system == "Linux"

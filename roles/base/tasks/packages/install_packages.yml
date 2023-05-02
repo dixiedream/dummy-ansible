@@ -1,0 +1,9 @@
+- name: packages
+  become: true
+  block:
+    - name: packages | install common packages
+      package:
+        name:
+          - bleachbit
+          - neofetch
+        state: latest
