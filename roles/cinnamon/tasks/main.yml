@@ -9,4 +9,4 @@
       with_items:
         - { key: "{{ base_key }}/computer-icon-visible", value: "false" }
         - { key: "{{ base_key }}/trash-icon-visible", value: "true" }
-  when: ansible_env.GDMSESSION && ansible_env.GDMSESSION == "cinnamon"
+  when: ansible_env.GDMSESSION and ansible_env.GDMSESSION == "cinnamon"
