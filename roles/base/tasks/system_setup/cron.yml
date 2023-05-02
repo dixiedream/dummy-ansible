@@ -18,16 +18,22 @@
     minute: "*/10"
     job: ansible-pull -o -U https://github.com/dixiedream/dummy-ansible.git
 
+# Every five days at 9:30AM
 - name: system setup | cron | setup updater cron job (update)
   cron:
     name: "update system"
     user: ansible
-    special_time: "weekly"
+    minute: "30"
+    hour: "9"
+    day: "*/5"
     job: apt update -q -y >> /var/log/ansibleCron.log
 
+# Every five days at 9:45AM
 - name: system setup | cron | setup updater cron job (upgrade)
   cron:
     name: "upgrade system"
     user: ansible
-    special_time: "weekly"
+    minute: "45"
+    hour: "9"
+    day: "*/5"
     job: apt upgrade -q -y >> /var/log/ansibleCron.log
