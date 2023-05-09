@@ -1,0 +1,24 @@
+- name: packages | anydesk | get server key
+  shell: wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY
+  register: anydeskKey
+
+- name: packages | anydesk | add GPG key
+  become: true
+  apt_key:
+    id: "{{ item }}"
+    keyserver: "{{ anydeskKey.stdout }}"
+  with_items:
+    - https://keys.anydesk.com/repos/DEB-GPG-KEY
+
+- name: packages | anydesk | setup repo (Debian)
+  become: true
+  apt_repository:
+    repo: deb http://deb.anydesk.com/ all main
+    state: present
+    filename: anydesk-stable
+
+- name: packages | anydesk | install
+  become: true
+  package:
+    name: anydesk
+    state: latest
