@@ -19,6 +19,7 @@
 
 - name: packages | anydesk | install
   become: true
-  package:
+  apt:
     name: anydesk
+    update_cache: yes
     state: latest
