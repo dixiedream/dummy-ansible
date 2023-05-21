@@ -1,39 +1,42 @@
-- name: system setup | cron | create ansible user
-  user:
-    name: ansible
-    system: yes
+- name: system setup | cron
+  become: true
+  block:
+    - name: system setup | cron | create ansible user
+      user:
+        name: ansible
+        system: yes
 
-- name: system setup | cron | setup user permissions
-  copy:
-    src: system_setup/sudoers_ansible
-    dest: /etc/sudoers.d/ansible
-    owner: root
-    group: root
-    mode: 044
+    - name: system setup | cron | setup user permissions
+      copy:
+        src: system_setup/sudoers_ansible
+        dest: /etc/sudoers.d/ansible
+        owner: root
+        group: root
+        mode: 044
 
-- name: system setup | cron | setup ansible-pull cron job
-  cron:
-    name: "ansible auto-provision"
-    user: ansible
-    minute: "*/10"
-    job: ansible-pull -o -U https://github.com/dixiedream/dummy-ansible.git
+    - name: system setup | cron | setup ansible-pull cron job
+      cron:
+        name: "ansible auto-provision"
+        user: ansible
+        minute: "*/10"
+        job: ansible-pull -o -U https://github.com/dixiedream/dummy-ansible.git
 
-# Every five days at 9:30AM
-- name: system setup | cron | setup updater cron job (update)
-  cron:
-    name: "update system"
-    user: ansible
-    minute: "30"
-    hour: "9"
-    day: "*/5"
-    job: apt update -q -y >> /var/log/ansibleCron.log
+    # Every five days at 9:30AM
+    - name: system setup | cron | setup updater cron job (update)
+      cron:
+        name: "update system"
+        user: ansible
+        minute: "30"
+        hour: "9"
+        day: "*/5"
+        job: apt update -q -y >> /var/log/ansibleCron.log
 
-# Every five days at 9:45AM
-- name: system setup | cron | setup updater cron job (upgrade)
-  cron:
-    name: "upgrade system"
-    user: ansible
-    minute: "45"
-    hour: "9"
-    day: "*/5"
-    job: apt upgrade -q -y >> /var/log/ansibleCron.log
+    # Every five days at 9:45AM
+    - name: system setup | cron | setup updater cron job (upgrade)
+      cron:
+        name: "upgrade system"
+        user: ansible
+        minute: "45"
+        hour: "9"
+        day: "*/5"
+        job: apt upgrade -q -y >> /var/log/ansibleCron.log
