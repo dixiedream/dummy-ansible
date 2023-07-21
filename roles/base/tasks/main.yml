@@ -7,6 +7,7 @@
     - import_tasks: users/user.yml
     - import_tasks: ansible_setup.yml
     - import_tasks: packages/install_packages.yml
+    - import_tasks: packages/install_anydesk.yml
     - import_tasks: packages/install_brave.yml
     - import_tasks: packages/remove_bloat.yml
     - import_tasks: system_setup/apt.yml
