@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.1
+- Cron log file permissions fixed
+
 ## v1.0.0
 - Anydesk installation
 
