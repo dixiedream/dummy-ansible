@@ -14,6 +14,14 @@
         group: root
         mode: 044
 
+    - name: system setup | cron | create cron log file
+      file:
+        path: /var/log/ansibleCron.log
+        state: touch
+        owner: ansible
+        group: ansible
+        mode: 0644
+
     - name: system setup | cron | setup ansible-pull cron job
       cron:
         name: "ansible auto-provision"
