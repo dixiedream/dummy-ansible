@@ -30,21 +30,65 @@
         job: ansible-pull -o -U https://github.com/dixiedream/dummy-ansible.git
 
     # Every five days at 9:30AM
-    - name: system setup | cron | setup updater cron job (update)
+    - name: system setup | cron | setup updater cron job
       cron:
         name: "update system"
         user: ansible
         minute: "30"
         hour: "9"
         day: "*/5"
-        job: apt update -q -y >> /var/log/ansibleCron.log
+        job: apt autoremove && apt update -q -y && apt upgrade -q -y >> /var/log/ansibleCron.log
+
+    # Every five days at 11:00AM
+    - name: system setup | cron | setup cleanup job
+      cron:
+        name: "cleanup" # Not sure if name should be different per item
+        user: ansible
+        minute: "{{ item.minute }}"
+        hour: "11"
+        day: "*/5"
+        job: "/usr/bin/bleachbit -c {{ item.command }} >> /var/log/ansibleCron.log"
+      with_items:
+        - { minute: 1, command: 'system.cache' }
+        - { minute: 2, command: 'system.localizations' }
+        - { minute: 3, command: 'system.tmp' }
+        - { minute: 4, command: 'system.trash' }
+        - { minute: 5, command: 'apt.package_lists' }
+        - { minute: 6, command: 'apt.autoclean' }
+        - { minute: 7, command: 'apt.autoremove' }
+        - { minute: 8, command: 'apt.clean' }
+        - { minute: 9, command: 'brave.cache' }
+        - { minute: 10, command: 'brave.cookies' }
+        - { minute: 11, command: 'chromium.cache' }
+        - { minute: 12, command: 'chromium.cookies' }
+        - { minute: 13, command: 'deepscan.backup' }
+        - { minute: 14, command: 'deepscan.ds_store' }
+        - { minute: 15, command: 'deepscan.thumbs_db' }
+        - { minute: 16, command: 'deepscan.tmp' }
+        - { minute: 17, command: 'deepscan.vim_swap_root' }
+        - { minute: 18, command: 'deepscan.vim_swap_user' }
+        - { minute: 19, command: 'evolution.cache' }
+        - { minute: 20, command: 'firefox.cache' }
+        - { minute: 21, command: 'firefox.cookies' }
+        - { minute: 22, command: 'google_chrome.cache' }
+        - { minute: 23, command: 'google_chrome.cookies' }
+        - { minute: 24, command: 'journald.clean' }
+        - { minute: 25, command: 'openofficeorg.cache' }
+        - { minute: 26, command: 'slack.cache' }
+        - { minute: 27, command: 'slack.cookies' }
+        - { minute: 28, command: 'system.free_disk_space' }
+        - { minute: 29, command: 'system.rotated_logs' }
+        - { minute: 30, command: 'x11.debug_logs' }
+        - { minute: 31, command: 'zoom.cache' }
+        - { minute: 32, command: 'zoom.logs' }
 
     # Every five days at 9:45AM
     - name: system setup | cron | setup updater cron job (upgrade)
       cron:
         name: "upgrade system"
         user: ansible
-        minute: "45"
-        hour: "9"
-        day: "*/5"
-        job: apt upgrade -q -y >> /var/log/ansibleCron.log
+        state: absent
+        # minute: "45"
+        # hour: "9"
+        # day: "*/5"
+        # job: apt upgrade -q -y >> /var/log/ansibleCron.log
