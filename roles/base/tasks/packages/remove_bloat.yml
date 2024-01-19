@@ -23,4 +23,5 @@
           - transmission-gtk
           - xreader
           - warpinator
+          - webapp-manager
         state: absent
