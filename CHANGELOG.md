@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.0
+- Add bleachbit and setup cleanup cron job
+
 ## v1.0.1
 - Cron log file permissions fixed
 
