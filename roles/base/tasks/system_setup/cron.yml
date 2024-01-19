@@ -37,7 +37,7 @@
         minute: "30"
         hour: "9"
         day: "*/5"
-        job: apt autoremove && apt update -q -y && apt upgrade -q -y >> /var/log/ansibleCron.log
+        job: apt autoremove -y && apt update -q -y && apt upgrade -q -y >> /var/log/ansibleCron.log
 
     # Every five days at 11:00AM
     - name: system setup | cron | setup cleanup job
