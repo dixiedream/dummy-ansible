@@ -42,7 +42,7 @@
     # Every five days at 11:00AM
     - name: system setup | cron | setup cleanup job
       cron:
-        name: "cleanup" # Not sure if name should be different per item
+        name: "cleanup-{{ item.command }}" # Not sure if name should be different per item
         user: ansible
         minute: "{{ item.minute }}"
         hour: "11"
