@@ -12,10 +12,7 @@ Please install Ansible through [official documentation](https://docs.ansible.com
 
 ## Usage
 
-### A few info
-In the scripts folder there are different launching options depending on your setup... here are some clarification:
-
-- `baseInstall.sh` Install a very resource friendly [Xorg](https://wiki.archlinux.org/title/Xorg) environment (tested on **Archlinux**, **Debian testing**, **Artix Linux**)
-
 ### Steps
 1. Run one of the scripts in `scripts`, for example `sh ./scripts/baseInstall.sh`
+2. Insert sudo password
+3. Enjoy
