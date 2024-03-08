@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.2.1
+- Make bleachbit cron run on customized user instead on ansible
+
 ## v1.2.0
 - Removed `webapp-manager`
 
